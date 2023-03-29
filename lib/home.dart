@@ -1,72 +1,120 @@
 import 'package:flutter/material.dart';
-import 'add_contact.dart';
 
-class Home extends StatefulWidget {
-  final String _title;
-  // ignore: use_key_in_widget_constructors
-  const Home(this._title);
+import 'package:hola_mundo/src/providers/usuario_provider.dart';
+import 'package:hola_mundo/src/providers/producto_provider.dart';
+
+class HomePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _Home();
+  State<StatefulWidget> createState() {
+    return _HomePageState();
+  }
 }
 
-class _Home extends State<Home> {
-  List<Client> clients = [
-    Client(name: 'Miguel', surname: 'Mora', phone: '302 454 25 93'),
-    Client(name: 'Alejandro', surname: 'Perez', phone: '322 412 34 68'),
-    Client(name: 'Jhonatan', surname: 'Gutierrez', phone: '301 441 36 98'),
-    Client(name: 'Juan', surname: 'Segura', phone: '310 789 90 62')
-  ];
+class _HomePageState extends State<HomePage> {
+  // const HolaMundoHome({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget._title),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          tooltip: "Menu principal",
+          onPressed: () => [],
+        ),
+        title: Text('Listado de usuarios'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search), tooltip: "Buscar", onPressed: () => {})
+        ],
       ),
-      body: ListView.builder(
-        itemCount: clients.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {},
-            onLongPress: () {},
-            title: Text(clients[index].name + " " + clients[index].surname),
-            subtitle: Text(clients[index].phone),
-            leading: CircleAvatar(
-              child: Text(clients[index].name.substring(0, 1)),
-            ),
-            // ignore: prefer_const_constructors
-            trailing: Icon(
-              Icons.call,
-              color: Colors.red,
-            ),
-          );
+      body: Center(
+          child: FutureBuilder(
+        future: UsuarioProvider.getUsuarios(),
+        builder: (BuildContext context,
+            AsyncSnapshot<List<UsuarioModel?>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data?.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                    title: Text('Usuario: ${snapshot.data![index]!.id}'),
+                    subtitle: Column(
+                      children: [
+                        Text('Nombre: ${snapshot.data![index]!.nombre} '),
+                        Text('Correo: ${snapshot.data![index]!.correo} '),
+                        Text(
+                            'Contraseña: ${snapshot.data![index]!.contrasenia} '),
+                      ],
+                    ));
+              },
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => AddContact()))
-              .then((newContact) {
-            if (newContact != null) {
-              setState(() {
-                clients.add(newContact);
-              });
-            }
-          });
-        },
-        tooltip: "Agregar Contacto",
-        child: const Icon(Icons.add),
+      )),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              guardarDatos();
+            },
+            child: Icon(Icons.add),
+          ),
+          SizedBox(width: 16),
+          FloatingActionButton(
+            backgroundColor: Colors.red,
+            onPressed: () {
+              eliminarDatos();
+            },
+            child: Icon(Icons.delete),
+          ),
+        ],
       ),
     );
   }
-}
 
-class Client {
-  // ignore: prefer_typing_uninitialized_variables
-  var name;
-  // ignore: prefer_typing_uninitialized_variables
-  var surname;
-  // ignore: prefer_typing_uninitialized_variables
-  var phone;
+//funciones para pruebas
+  guardarDatos() async {
+    //Crea usuarios de prueba en la base de datos
+    await UsuarioProvider.nuevoUsuario(UsuarioModel(
+        id: 1,
+        nombre: "Alejandro",
+        correo: "alejandro@gmail.com",
+        contrasenia: "1234"));
 
-  Client({this.name, this.surname, this.phone});
+    UsuarioProvider.nuevoUsuario(UsuarioModel(
+        id: 2,
+        nombre: "Brayan",
+        correo: "brayan@gmail.com",
+        contrasenia: "1234"));
+    UsuarioProvider.nuevoUsuario(UsuarioModel(
+        id: 3,
+        nombre: "Albert",
+        correo: "albert@gmail.com",
+        contrasenia: "1234"));
+    UsuarioProvider.nuevoUsuario(UsuarioModel(
+        id: 4,
+        nombre: "Miguel",
+        correo: "miguel@gmail.com",
+        contrasenia: "1234"));
+
+//crear un producto
+    ProductoProvider.nuevoProducto(ProductoModel(
+        id: 1, codigo: 'sss', nombre: 'destornillador', creadoPor: 1));
+
+    //imprimir los productos y usuarios creados
+    UsuarioProvider.getUsuarios();
+    ProductoProvider.getProductos();
+    //  ProductoProvider.nuevoProducto(ProductoModel(id: 2, codigo: 'sss', nombre: 'destornillador', creadoPor: 7));
+  }
+
+//elimina todos los usuarios de la base de datos
+  eliminarDatos() async {
+    // await UsuarioProvider.database;
+    ProductoProvider.eliminarTodosLosProductos();
+    UsuarioProvider.eliminarTodosUsuarios();
+  }
 }

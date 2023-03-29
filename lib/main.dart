@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hola_mundo/home.dart';
 
-import 'home.dart';
+void main() {
+  runApp(MyApp());
+}
 
-void main() => runApp(MyApp());
-
-// ignore: use_key_in_widget_constructors
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Material App',
-      home: Home("Mis contactos"),
-    ); // MaterialApp
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "hola Mundo",
+        home: HomePage());
   }
 }

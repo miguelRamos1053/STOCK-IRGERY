@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'home.dart';
 import 'text_box.dart';
@@ -40,7 +41,7 @@ class _AddContact extends State<AddContact> {
 
                 if (name.isNotEmpty && surname.isNotEmpty && phone.isNotEmpty) {
                   Navigator.pop(context,
-                      Client(name: name, surname: surname, phone: phone));
+                      //Client(name: name, surname: surname, phone: phone));
                 }
               },
               child: const Text("Guardar Contacto")),
@@ -49,3 +50,4 @@ class _AddContact extends State<AddContact> {
     );
   }
 }
+*/
