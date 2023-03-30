@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hola_mundo/src/providers/usuario_provider.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
+import 'package:hola_mundo/src/views/crearProducto.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -62,6 +63,7 @@ class _HomePageState extends State<HomePage> {
               guardarDatos();
             },
             child: Icon(Icons.add),
+            heroTag: 'btn1',
           ),
           SizedBox(width: 16),
           FloatingActionButton(
@@ -70,7 +72,16 @@ class _HomePageState extends State<HomePage> {
               eliminarDatos();
             },
             child: Icon(Icons.delete),
+            heroTag: 'btn2',
           ),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => CrearProducto()));
+            },
+            child: Icon(Icons.add),
+            heroTag: 'btn3',
+          )
         ],
       ),
     );
