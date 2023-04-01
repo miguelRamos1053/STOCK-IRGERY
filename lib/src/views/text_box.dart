@@ -9,7 +9,7 @@ class TextBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: TextField(
+      child: TextFormField(
         controller: _controller,
         decoration: InputDecoration(
             filled: true,
@@ -20,6 +20,7 @@ class TextBox extends StatelessWidget {
                 _controller.clear();
               },
             )),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
       ),
     );
   }

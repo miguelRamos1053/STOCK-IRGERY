@@ -11,89 +11,154 @@ class CrearProducto extends StatefulWidget {
 }
 
 class _CrearProducto extends State<CrearProducto> {
-  late TextEditingController controllerCodigo;
-  late TextEditingController controllerNombre;
-  late TextEditingController controllerDetalles;
-  late TextEditingController controllerCantidad;
-
-  @override
-  void initState() {
-    controllerCodigo = TextEditingController();
-    controllerNombre = TextEditingController();
-    controllerDetalles = TextEditingController();
-    controllerCantidad = TextEditingController();
-    super.initState();
-  }
+  late String _codigo;
+  late String _nombre;
+  late String _detalles;
+  late String _cantidad;
 
   File? file;
   ImagePicker image = ImagePicker();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Widget _buildCodigo() {
+    return TextFormField(
+      decoration: const InputDecoration(labelText: 'Codigo'),
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'El codigo es requerido';
+        }
+        return null;
+      },
+      onSaved: (String? value) {
+        _codigo = value!;
+      },
+    );
+  }
+
+  Widget _buildNombre() {
+    return TextFormField(
+      decoration: const InputDecoration(labelText: 'Nombre'),
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'El nombre es requerido';
+        }
+        return null;
+      },
+      onSaved: (String? value) {
+        _nombre = value!;
+      },
+    );
+  }
+
+  Widget _buildDetalle() {
+    return TextFormField(
+      decoration: const InputDecoration(labelText: 'Detalles'),
+      onSaved: (String? value) {
+        _detalles = value!;
+      },
+    );
+  }
+
+  Widget _buildCantidad() {
+    return TextFormField(
+      decoration: const InputDecoration(labelText: 'Cantidad'),
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'La cantidad es requerida';
+        }
+
+        return null;
+      },
+      onSaved: (String? value) {
+        _cantidad = value!;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Crear Producto"),
+        backgroundColor: Colors.orange[80],
       ),
       body: Center(
-        child: Column(
-          children: [
-            Container(
-              height: 200,
-              width: 250,
-              color: Colors.black12,
-              child: file == null
-                  ? const Icon(
-                      Icons.image,
-                      size: 50,
-                    )
-                  : Image.file(
-                      file!,
-                      fit: BoxFit.fill,
-                    ),
-            ),
-            MaterialButton(
-              color: Colors.blue[900],
-              onPressed: () {
-                getGall();
-              },
-              child: const Text(
-                'Seleccionar desde la galeria',
-                style: TextStyle(
-                  color: Colors.white,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            children: [
+              Container(
+                height: 200,
+                width: 250,
+                color: Colors.black12,
+                child: file == null
+                    ? const Icon(
+                        Icons.image,
+                        size: 50,
+                      )
+                    : Image.file(
+                        file!,
+                        fit: BoxFit.fill,
+                      ),
+              ),
+              MaterialButton(
+                color: Colors.blue[900],
+                onPressed: () {
+                  getGall();
+                },
+                child: const Text(
+                  'Seleccionar desde la galeria',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            MaterialButton(
-              color: Colors.blue[900],
-              onPressed: () {
-                getCam();
-              },
-              child: const Text(
-                'Tomar foto',
-                style: TextStyle(
-                  color: Colors.white,
+              MaterialButton(
+                color: Colors.blue[900],
+                onPressed: () {
+                  getCam();
+                },
+                child: const Text(
+                  'Tomar foto',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            ListView(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              children: [
-                TextBox(controllerCodigo, "Codigo"),
-                TextBox(controllerNombre, "Nombre"),
-                TextBox(controllerDetalles, "Detalles"),
-                TextBox(controllerCantidad, "Cantidad"),
-                ElevatedButton(
-                    onPressed: () {
-                      //String codigo = controllerCodigo.text;
-                      //String name = controllerNombre.text;
-                      //String surname = controllerDetalles.text;
-                      //String phone = controllerCantidad.text;
-                    },
-                    child: const Text("Guardar Producto")),
-              ],
-            ),
-          ],
+              Container(
+                margin: const EdgeInsets.all(24),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      _buildCodigo(),
+                      _buildNombre(),
+                      _buildDetalle(),
+                      _buildCantidad(),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      ElevatedButton(
+                        child: const Text(
+                          'Enviar',
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        onPressed: () {
+                          if (!_formKey.currentState!.validate()) {
+                            return;
+                          }
+                          _formKey.currentState!.save();
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
