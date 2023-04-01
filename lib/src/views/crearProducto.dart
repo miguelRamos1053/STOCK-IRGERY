@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'text_box.dart';
 
 // ignore: use_key_in_widget_constructors
 class CrearProducto extends StatefulWidget {
@@ -27,6 +26,9 @@ class _CrearProducto extends State<CrearProducto> {
       validator: (String? value) {
         if (value!.isEmpty) {
           return 'El codigo es requerido';
+        }
+        if (value.length < 2) {
+          return 'El codigo debe tener minimo 2 caracteres';
         }
         return null;
       },
@@ -66,6 +68,9 @@ class _CrearProducto extends State<CrearProducto> {
       validator: (String? value) {
         if (value!.isEmpty) {
           return 'La cantidad es requerida';
+        }
+        if (int.parse(value) <= 0) {
+          return 'La cantidad no puede ser negativa';
         }
 
         return null;
