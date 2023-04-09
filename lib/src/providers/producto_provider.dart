@@ -4,7 +4,6 @@ export 'package:hola_mundo/src/models/producto_model.dart';
 import 'package:hola_mundo/src/providers/db_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-
 /*
 CRUD DE LOS PRODUCTOS
 
@@ -39,7 +38,8 @@ class ProductoProvider {
     List<ProductoModel> lista = resultado!.isNotEmpty
         ? resultado.map((e) => ProductoModel.fromJson(e)).toList()
         : [];
-            lista.forEach((e) =>print('Nombre: ${e.nombre}, Codigo: ${e.codigo}, ID: ${e.id}, cantidad: ${e.cantidad}, creado por: ${e.creadoPor}'));
+    lista.forEach((e) => print(
+        'Nombre: ${e.nombre}, Codigo: ${e.codigo}, ID: ${e.id}, cantidad: ${e.cantidad}, creado por: ${e.creadoPor}'));
 
     return lista;
   }

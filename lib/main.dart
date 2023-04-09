@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/home.dart';
+import 'package:hola_mundo/menu.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,6 +11,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Stock Irgery",
-        home: HomePage());
+        home: MenuPage());
   }
 }
