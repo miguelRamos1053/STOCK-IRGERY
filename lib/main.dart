@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/home.dart';
+import 'package:hola_mundo/menu.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "hola Mundo",
-        home: HolaMundoHome());
+        title: "Stock Irgery",
+        home: MenuPage());
   }
 }

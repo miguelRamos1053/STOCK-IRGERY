@@ -4,24 +4,19 @@ import 'package:hola_mundo/src/providers/usuario_provider.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
 import 'package:hola_mundo/src/views/crearProducto.dart';
 
-class HomePage extends StatefulWidget {
+class listaUsuario extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomePageState();
+    return _listaUsuario();
   }
 }
 
-class _HomePageState extends State<HomePage> {
+class _listaUsuario extends State<listaUsuario> {
   // const HolaMundoHome({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          tooltip: "Menu principal",
-          onPressed: () => [],
-        ),
         title: Text('Listado de usuarios'),
         actions: <Widget>[
           IconButton(
@@ -73,14 +68,6 @@ class _HomePageState extends State<HomePage> {
             },
             child: Icon(Icons.delete),
             heroTag: 'btn2',
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => CrearProducto()));
-            },
-            child: Icon(Icons.add),
-            heroTag: 'btn3',
           )
         ],
       ),
