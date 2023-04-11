@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hola_mundo/src/views/listarProducto.dart';
+import 'package:hola_mundo/src/views/listarProductosTarjeta.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
 import 'package:hola_mundo/home.dart';
 
@@ -33,6 +34,12 @@ class _MenuPageState extends State<MenuPage> {
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => listarProducto()));
+                }),
+            ElevatedButton(
+                child: Text("PRODUCTOS TARJETA"),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => listarProductoTarjeta()));
                 }),
             ElevatedButton(
                 child: Text("USUARIOS"),
