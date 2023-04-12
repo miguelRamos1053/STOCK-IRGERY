@@ -14,6 +14,7 @@ class _CrearProducto extends State<CrearProducto> {
   late String _nombre;
   late String _detalles;
   late String _cantidad;
+  late String _precio;
 
   File? file;
   ImagePicker image = ImagePicker();
@@ -81,6 +82,25 @@ class _CrearProducto extends State<CrearProducto> {
     );
   }
 
+  Widget _builPrecio() {
+    return TextFormField(
+      decoration: const InputDecoration(labelText: 'Precio'),
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'El precio es requerido';
+        }
+        if (int.parse(value) <= 0) {
+          return 'El precio debe ser mayor a 0';
+        }
+
+        return null;
+      },
+      onSaved: (String? value) {
+        _precio = value!;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,13 +163,14 @@ class _CrearProducto extends State<CrearProducto> {
                       _buildNombre(),
                       _buildDetalle(),
                       _buildCantidad(),
+                      _builPrecio(),
                       const SizedBox(
                         height: 50,
                       ),
                       ElevatedButton(
                         child: const Text(
                           'Enviar',
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+                          style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                         onPressed: () {
                           if (!_formKey.currentState!.validate()) {
