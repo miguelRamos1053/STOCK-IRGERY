@@ -39,7 +39,7 @@ class ProductoProvider {
         ? resultado.map((e) => ProductoModel.fromJson(e)).toList()
         : [];
     lista.forEach((e) => print(
-        'Nombre: ${e.nombre}, Codigo: ${e.codigo}, ID: ${e.id}, cantidad: ${e.cantidad}, creado por: ${e.creadoPor}'));
+        'Nombre: ${e.nombre}, Codigo: ${e.codigo}, ID: ${e.id}, cantidad: ${e.cantidad} creado por: ${e.creadoPor}'));
 
     return lista;
   }
