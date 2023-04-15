@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/src/providers/usuario_provider.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
 import 'package:hola_mundo/src/views/crearProducto.dart';
+import 'package:hola_mundo/src/views/listarProductosTarjeta.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
 
 class listarProducto extends StatefulWidget {
@@ -74,8 +75,25 @@ class _listarProducto extends State<listarProducto> {
         ),
       ),
       appBar: AppBar(
-        title: Text("Lista Productos"),
+        title: Text(
+          "Lista Productos",
+          style: TextStyle(fontSize: 14),
+        ),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.view_array_rounded),
+              tooltip: "listar Producto Tarjeta",
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => listarProductoTarjeta()));
+              }),
+          IconButton(
+              icon: Icon(Icons.text_rotate_vertical),
+              tooltip: "Buscar",
+              onPressed: () => {}),
+        ],
       ),
+
       body: Center(
           child: FutureBuilder(
         future: ProductoProvider.getProductos(),

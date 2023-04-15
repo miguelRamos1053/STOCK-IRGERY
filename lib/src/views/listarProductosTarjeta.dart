@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/src/providers/usuario_provider.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
 import 'package:hola_mundo/src/views/crearProducto.dart';
+import 'package:hola_mundo/src/views/listarProducto.dart';
+import 'package:hola_mundo/src/views/listarUsuario.dart';
 
 class listarProductoTarjeta extends StatefulWidget {
   @override
@@ -14,8 +16,78 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 70, bottom: 20),
+              ),
+              const Text(
+                "STOCK IRGERY",
+                style: TextStyle(fontSize: 30),
+              ),
+              //----INICIO ---------------------
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => listarProducto()));
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(top: 50),
+                    padding: new EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                    color: Colors.grey[100],
+                    child: new Column(children: [
+                      new Text("INICIO"),
+                    ]),
+                  )),
+              //----USUARIOS ---------------------
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => listaUsuario()));
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: new EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                    color: Colors.grey[100],
+                    child: new Column(children: [
+                      new Text("USUARIOS"),
+                    ]),
+                  )),
+
+              //-- SALIR ------------------------------------
+              Expanded(child: Container()),
+              Container(
+                padding: const EdgeInsets.all(20),
+                width: double.infinity,
+                color: Color.fromARGB(221, 43, 142, 199),
+                child: const Text(
+                  "Salir",
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         title: Text("Lista Productos"),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.table_view_rounded),
+              tooltip: "listar Producto ",
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => listarProducto()));
+              }),
+          IconButton(
+              icon: Icon(Icons.text_rotate_vertical),
+              tooltip: "Buscar",
+              onPressed: () => {}),
+        ],
       ),
       body: Center(
           child: FutureBuilder(
@@ -39,11 +111,10 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
                         child: Flexible(child: Image.asset('url.png')),
                       ),*/
                       //Text('${snapshot.data![index]!.codigo} '),
-                      Text('${snapshot.data![index]!.nombre} '.toUpperCase(),
+                      Text(
+                        '${snapshot.data![index]!.nombre} '.toUpperCase(),
                         style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold
-                        ),
+                            fontSize: 12.0, fontWeight: FontWeight.bold),
                       ),
                       //Text('Detalle: ${snapshot.data![index]!.detalles} '),
                       Text('Cantidad: ${snapshot.data![index]!.cantidad} '),
@@ -79,8 +150,8 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
   //funciones para pruebas
   guardarDatos() async {
 //crear un producto
- 
-   /* ProductoProvider.nuevoProducto(ProductoModel(
+
+    /* ProductoProvider.nuevoProducto(ProductoModel(
         id: 1,
         codigo: 'sss',
         nombre: 'destornillador',
