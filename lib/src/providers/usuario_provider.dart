@@ -77,4 +77,11 @@ class UsuarioProvider {
     print(tables);
     return tables;
   }
+
+//crear un usuario
+  static crearUsuario(UsuarioModel nuevoUsuario) async {
+    final db = await _database;
+    final resultado = await db?.insert('Usuarios', nuevoUsuario.toJson());
+    return resultado;
+  }
 }
