@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 export 'package:hola_mundo/src/models/usuario_model.dart';
 
 /*
-CLASE DE LA CONFIGURACION Y CREACION DE LA BASE DE DATOS
+CLASE DE LA CONFIGURACIONn Y CREACION DE LA BASE DE DATOS
 
  */
 class DBProvider {
