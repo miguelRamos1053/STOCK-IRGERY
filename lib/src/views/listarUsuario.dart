@@ -77,6 +77,7 @@ class _listaUsuario extends State<listaUsuario> {
 //funciones para pruebas
   guardarDatos() async {
     //Crea usuarios de prueba en la base de datos
+
     await UsuarioProvider.nuevoUsuario(UsuarioModel(
         id: 1,
         nombre: "Alejandro",
@@ -98,10 +99,6 @@ class _listaUsuario extends State<listaUsuario> {
         nombre: "Miguel",
         correo: "miguel@gmail.com",
         contrasenia: "1234"));
-
-//crear un producto
-    ProductoProvider.nuevoProducto(ProductoModel(
-        id: 1, codigo: 'sss', nombre: 'destornillador', creadoPor: 1));
 
     //imprimir los productos y usuarios creados
     UsuarioProvider.getUsuarios();
