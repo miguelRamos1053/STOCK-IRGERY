@@ -70,7 +70,7 @@ class _CrearProducto extends State<CrearProducto> {
         if (value!.isEmpty) {
           return 'La cantidad es requerida';
         }
-        if (int.parse(value) <= 0) {
+        if (int.parse(value) < 0) {
           return 'La cantidad no puede ser negativa';
         }
 
