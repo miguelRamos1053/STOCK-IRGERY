@@ -5,6 +5,8 @@ import 'package:hola_mundo/src/views/crearProducto.dart';
 import 'package:hola_mundo/src/views/listarProducto.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
 
+import 'actualizarCantidad.dart';
+
 class listarProductoTarjeta extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -97,35 +99,45 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             return GridView.builder(
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
               itemCount: snapshot.data?.length,
               itemBuilder: (context, index) {
                 return Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(17)),
+                  color: Colors.white70,
+                  elevation: 10.0,
                   child: Column(
                     children: [
-                      Flexible(
-                          child: Image.asset('${snapshot.data![index]!.foto}')),
+                      Flexible(child: Image.asset(snapshot.data![index]!.foto)),
 
                       //Text('${snapshot.data![index]!.codigo} '),
                       Text(
                         '${snapshot.data![index]!.nombre} '.toUpperCase(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12.0, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         '${snapshot.data![index]!.precio} '.toUpperCase(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12.0, fontWeight: FontWeight.bold),
                       ),
                       //Text('Detalle: ${snapshot.data![index]!.detalles} '),
                       Text('Cantidad: ${snapshot.data![index]!.cantidad} '),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => ActualizarCantidad(
+                                      snapshot.data?[index])));
+                        },
+                        icon: const Icon(Icons.edit),
+                        label: const Text('Cantidad'),
+                      ),
                     ],
                   ),
-                  color: Colors.white70,
-                  elevation: 10.0,
                 );
               },
             );

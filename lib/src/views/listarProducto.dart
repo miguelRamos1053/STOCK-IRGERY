@@ -5,6 +5,8 @@ import 'package:hola_mundo/src/views/crearProducto.dart';
 import 'package:hola_mundo/src/views/listarProductosTarjeta.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
 
+import 'actualizarCantidad.dart';
+
 class listarProducto extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -113,6 +115,17 @@ class _listarProducto extends State<listarProducto> {
                         Text('Nombre: ${snapshot.data![index]!.precio} '),
                         Text('Detalle: ${snapshot.data![index]!.detalles} '),
                         Text('Cantidad: ${snapshot.data![index]!.cantidad} '),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ActualizarCantidad(
+                                        snapshot.data?[index])));
+                          },
+                          icon: const Icon(Icons.edit),
+                          label: const Text('Cantidad'),
+                        ),
                       ],
                     ));
               },
@@ -142,7 +155,7 @@ class _listarProducto extends State<listarProducto> {
   //funciones para pruebas
   guardarDatos() async {
 //crear un producto
-
+/*
     ProductoProvider.nuevoProducto(ProductoModel(
         id: 1,
         codigo: 'A-1',
@@ -182,7 +195,7 @@ class _listarProducto extends State<listarProducto> {
         cantidad: 50,
         foto: 'assets/adaptadorM.jpeg',
         creadoPor: 1));
-
+*/
     //imprimir los productos y usuarios creados
 
     ProductoProvider.getProductos();
