@@ -74,7 +74,7 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
         ),
       ),
       appBar: AppBar(
-        title: Text("Lista Productos"),
+        title: Text("Lista Productos T", style: TextStyle(fontSize: 14)),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.table_view_rounded),
@@ -106,13 +106,17 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
                       borderRadius: BorderRadius.circular(17)),
                   child: Column(
                     children: [
-                      /*Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Flexible(child: Image.asset('url.png')),
-                      ),*/
+                      Flexible(
+                          child: Image.asset('${snapshot.data![index]!.foto}')),
+
                       //Text('${snapshot.data![index]!.codigo} '),
                       Text(
                         '${snapshot.data![index]!.nombre} '.toUpperCase(),
+                        style: TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '${snapshot.data![index]!.precio} '.toUpperCase(),
                         style: TextStyle(
                             fontSize: 12.0, fontWeight: FontWeight.bold),
                       ),

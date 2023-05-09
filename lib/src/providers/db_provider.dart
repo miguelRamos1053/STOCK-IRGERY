@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 export 'package:hola_mundo/src/models/usuario_model.dart';
 
 /*
-CLASE DE LA CONFIGURACION Y CREACION DE LA BASE DE DATOS
+CLASE DE LA CONFIGURACIONn Y CREACION DE LA BASE DE DATOS
 
  */
 class DBProvider {
@@ -48,8 +48,10 @@ class DBProvider {
             'id INTEGER PRIMARY KEY,'
             'codigo TEXT NOT NULL,'
             'nombre TEXT NOT NULL,'
+            'precio INTEGER NOT NULL,'
             'detalles TEXT,'
             'cantidad INTEGER NOT NULL,'
+            'foto TEXT,'
             'creadoPor INTEGER,'
             'FOREIGN KEY(creadoPor) REFERENCES Usuarios(id)'
             ')');

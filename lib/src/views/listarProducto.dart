@@ -110,6 +110,7 @@ class _listarProducto extends State<listarProducto> {
                       children: [
                         Text('Codigo: ${snapshot.data![index]!.codigo} '),
                         Text('Nombre: ${snapshot.data![index]!.nombre} '),
+                        Text('Nombre: ${snapshot.data![index]!.precio} '),
                         Text('Detalle: ${snapshot.data![index]!.detalles} '),
                         Text('Cantidad: ${snapshot.data![index]!.cantidad} '),
                       ],
@@ -141,38 +142,47 @@ class _listarProducto extends State<listarProducto> {
   //funciones para pruebas
   guardarDatos() async {
 //crear un producto
-/* 
+
     ProductoProvider.nuevoProducto(ProductoModel(
         id: 1,
-        codigo: 'sss',
-        nombre: 'destornillador',
-        cantidad: 30,
+        codigo: 'A-1',
+        nombre: 'Cemento blanco 25kg',
+        precio: 36500,
+        detalles: 'Medio bulto cemento blanco - 25 kg',
+        cantidad: 25,
+        foto: 'assets/cementoB.jpeg',
         creadoPor: 1));
 
     ProductoProvider.nuevoProducto(ProductoModel(
         id: 2,
-        codigo: 'A-1',
-        nombre: 'Cemento blanco 25kg',
-        detalles: 'Medio bulto cemento blanco - 25 kg',
-        cantidad: 25,
+        codigo: 'A-2',
+        nombre: 'Cemento Gris 50kg',
+        precio: 33000,
+        detalles: 'Bulto cemento gris - 50 kg',
+        cantidad: 30,
+        foto: 'assets/cementoG.jpeg',
         creadoPor: 1));
-        
+
     ProductoProvider.nuevoProducto(ProductoModel(
         id: 3,
         codigo: 'B-1',
         nombre: 'codo pvc ½',
+        precio: 1200,
         detalles: 'Accesorio pvc de ½',
         cantidad: 100,
+        foto: 'assets/codo.jpeg',
         creadoPor: 1));
 
     ProductoProvider.nuevoProducto(ProductoModel(
         id: 4,
         codigo: 'B-2',
         nombre: 'Adaptador macho pvc ½',
+        precio: 1200,
         detalles: 'Accesorio pvc de ½',
         cantidad: 50,
+        foto: 'assets/adaptadorM.jpeg',
         creadoPor: 1));
-*/
+
     //imprimir los productos y usuarios creados
 
     ProductoProvider.getProductos();
