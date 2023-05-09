@@ -12,69 +12,108 @@ class UsuarioProvider {
   }
 
   static nuevoUsuario(UsuarioModel nuevoUsuario) async {
-    final db = await _database; //obtiene o referencia la base de datos
-    final resultado = await db?.insert('Usuarios', nuevoUsuario.toJson());
-    return resultado;
+    try {
+  final db = await _database; //obtiene o referencia la base de datos
+  final resultado = await db?.insert('Usuarios', nuevoUsuario.toJson());
+  return resultado;
+} on DatabaseException {
+ rethrow;
+}
   }
 
   static Future<UsuarioModel?> getUsuarioPorId(int id) async {
-    final db = await _database;
-    final resultado = await db?.query('Usuarios',
-        where: 'id = ?',
-        whereArgs: [id]); //realiza la consulta a la base de datos
-
-    return resultado!.isNotEmpty
-        ? UsuarioModel.fromJson(resultado.first)
-        : null;
+    try {
+  final db = await _database;
+  final resultado = await db?.query('Usuarios',
+      where: 'id = ?',
+      whereArgs: [id]); //realiza la consulta a la base de datos
+  
+  return resultado!.isNotEmpty
+      ? UsuarioModel.fromJson(resultado.first)
+      : null;
+} on DatabaseException {
+  rethrow;
+}
   }
 
   static Future<List<UsuarioModel?>> getUsuarios() async {
-    final db = await _database;
-    final resultado = await db?.query('Usuarios');
-
-    List<UsuarioModel> lista = resultado!.isNotEmpty
-        ? resultado.map((e) => UsuarioModel.fromJson(e)).toList()
-        : [];
-    lista.forEach((e) => print(
-        'Nombre: ${e.nombre}, Correo: ${e.correo}, ID: ${e.id}, contraseña: ${e.contrasenia}'));
-    return lista;
+    try {
+  final db = await _database;
+  final resultado = await db?.query('Usuarios');
+  
+  List<UsuarioModel> lista = resultado!.isNotEmpty
+      ? resultado.map((e) => UsuarioModel.fromJson(e)).toList()
+      : [];
+  lista.forEach((e) => print(
+      'Nombre: ${e.nombre}, Correo: ${e.correo}, ID: ${e.id}, contraseña: ${e.contrasenia}'));
+  return lista;
+} on DatabaseException {
+ rethrow;
+}
   }
 
   //actualizar registros
 
   static Future<int> actualizarUsuario(UsuarioModel nuevoUsuario) async {
-    final db = await _database;
-    final resultado = await db!.update('Usuarios', nuevoUsuario.toJson(),
-        where: 'id = ?', whereArgs: [nuevoUsuario.id]);
-    return resultado;
+    try {
+  final db = await _database;
+  final resultado = await db!.update('Usuarios', nuevoUsuario.toJson(),
+      where: 'id = ?', whereArgs: [nuevoUsuario.id]);
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 
   //borrar registros
 
   static Future<int> eliminarUsuario(int id) async {
-    final db = await _database;
-    final resultado =
-        await db!.delete('Usuarios', where: 'id = ?', whereArgs: [id]);
-    return resultado;
+    try {
+  final db = await _database;
+  final resultado =
+      await db!.delete('Usuarios', where: 'id = ?', whereArgs: [id]);
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 
 //Vaciar la tabla de usuarios
   static Future<int> eliminarTodosUsuarios() async {
-    final db = await _database;
-    final resultado = await db!.rawDelete('DELETE FROM Usuarios');
-    print('TODOS LOS USUARIOS ELIMINADOS');
-
-    return resultado;
+    try {
+  final db = await _database;
+  final resultado = await db!.rawDelete('DELETE FROM Usuarios');
+  print('TODOS LOS USUARIOS ELIMINADOS');
+  
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 
 //muestra todas las tablas que la base de datos contiene
   static Future<List<Map<String, dynamic>>> getTablas() async {
-    final db = await _database;
+    try {
+  final db = await _database;
+  
+  final List<Map<String, dynamic>> tables =
+      await db!.rawQuery('SELECT * FROM sqlite_master');
+  
+  print(tables);
+  return tables;
+} on DatabaseException{
+  rethrow;
+}
+  }
 
-    final List<Map<String, dynamic>> tables =
-        await db!.rawQuery('SELECT * FROM sqlite_master');
-
-    print(tables);
-    return tables;
+//crear un usuario
+  static crearUsuario(UsuarioModel nuevoUsuario) async {
+    try {
+  final db = await _database;
+  final resultado = await db?.insert('Usuarios', nuevoUsuario.toJson());
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 }

@@ -16,56 +16,80 @@ class FlujoInventarioProvider {
   }
 
   static nuevoFlujoInventario(FlujoInventarioModel inventario) async {
-    final db = await _database; //obtiene o referencia la base de datos
-    final resultado = await db?.insert('FlujoInventarios', inventario.toJson());
-    return resultado;
+    try {
+  final db = await _database; //obtiene o referencia la base de datos
+  final resultado = await db?.insert('FlujoInventarios', inventario.toJson());
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 
   static Future<FlujoInventarioModel?> getFlujoInventarioPorId(int id) async {
-    final db = await _database;
-    final resultado = await db?.query('FlujoInventarios',
-        where: 'id = ?',
-        whereArgs: [id]); //realiza la consulta a la base de datos
-
-    return resultado!.isNotEmpty
-        ? FlujoInventarioModel.fromJson(resultado.first)
-        : null;
+    try {
+  final db = await _database;
+  final resultado = await db?.query('FlujoInventarios',
+      where: 'id = ?',
+      whereArgs: [id]); //realiza la consulta a la base de datos
+  
+  return resultado!.isNotEmpty
+      ? FlujoInventarioModel.fromJson(resultado.first)
+      : null;
+} on DatabaseException {
+  rethrow;
+}
   }
 
   static Future<List<FlujoInventarioModel?>> getFlujo() async {
-    final db = await _database;
-    final resultado = await db?.query('FlujoInventarios');
-
-    List<FlujoInventarioModel> lista = resultado!.isNotEmpty
-        ? resultado.map((e) => FlujoInventarioModel.fromJson(e)).toList()
-        : [];
-    return lista;
+    try {
+  final db = await _database;
+  final resultado = await db?.query('FlujoInventarios');
+  
+  List<FlujoInventarioModel> lista = resultado!.isNotEmpty
+      ? resultado.map((e) => FlujoInventarioModel.fromJson(e)).toList()
+      : [];
+  return lista;
+} on DatabaseException {
+  rethrow;
+}
   }
 
   //actualizar registros
 
   static Future<int> actualizarFlujoInventario(
       FlujoInventarioModel inventario) async {
-    final db = await _database;
-    final resultado = await db!.update('FlujoInventarios', inventario.toJson(),
-        where: 'id = ?', whereArgs: [inventario.id]);
-    return resultado;
+    try {
+  final db = await _database;
+  final resultado = await db!.update('FlujoInventarios', inventario.toJson(),
+      where: 'id = ?', whereArgs: [inventario.id]);
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 
   //borrar registros
 
   static Future<int> eliminarFlujoInventario(int id) async {
-    final db = await _database;
-    final resultado =
-        await db!.delete('FlujoInventarios', where: 'id = ?', whereArgs: [id]);
-    return resultado;
+    try {
+  final db = await _database;
+  final resultado =
+      await db!.delete('FlujoInventarios', where: 'id = ?', whereArgs: [id]);
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 
   static Future<int> eliminarTodosLosFlujos() async {
-    final db = await _database;
-    final resultado = await db!.rawDelete('DELETE FROM FlujoInventarios');
-    print('TODOS LOS FLUJOS ELIMINADOS');
-
-    return resultado;
+    try {
+  final db = await _database;
+  final resultado = await db!.rawDelete('DELETE FROM FlujoInventarios');
+  print('TODOS LOS FLUJOS ELIMINADOS');
+  
+  return resultado;
+} on DatabaseException {
+ rethrow;
+}
   }
 }

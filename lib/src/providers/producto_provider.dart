@@ -15,13 +15,19 @@ class ProductoProvider {
   }
 
   static nuevoProducto(ProductoModel producto) async {
-    final db = await _database; //obtiene o referencia la base de datos
-    final resultado = await db?.insert('Productos', producto.toJson());
-    return resultado;
+    try {
+      final db = await _database; //obtiene o referencia la base de datos
+      final resultado = await db?.insert('Productos', producto.toJson());
+      return resultado;
+    } on DatabaseException {
+      
+      rethrow;
+    }
   }
 
   static Future<ProductoModel?> getProductoPorId(int id) async {
-    final db = await _database;
+    try{
+final db = await _database;
     final resultado = await db?.query('Productos',
         where: 'id = ?',
         whereArgs: [id]); //realiza la consulta a la base de datos
@@ -29,10 +35,15 @@ class ProductoProvider {
     return resultado!.isNotEmpty
         ? ProductoModel.fromJson(resultado.first)
         : null;
+    } on DatabaseException{
+      rethrow;
+    }
+    
   }
 
   static Future<List<ProductoModel?>> getProductos() async {
-    final db = await _database;
+    try{
+final db = await _database;
     final resultado = await db?.query('Productos');
 
     List<ProductoModel> lista = resultado!.isNotEmpty
@@ -42,30 +53,46 @@ class ProductoProvider {
         'Nombre: ${e.nombre}, Codigo: ${e.codigo}, ID: ${e.id}, cantidad: ${e.cantidad} creado por: ${e.creadoPor}'));
 
     return lista;
+    }on DatabaseException{
+      rethrow;
+    }
+    
   }
 
   //actualizar registros
 
   static Future<int> actualizarProducto(ProductoModel producto) async {
-    final db = await _database;
-    final resultado = await db!.update('Productos', producto.toJson(),
-        where: 'id = ?', whereArgs: [producto.id]);
-    return resultado;
+    try {
+  final db = await _database;
+  final resultado = await db!.update('Productos', producto.toJson(),
+      where: 'id = ?', whereArgs: [producto.id]);
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 
   //borrar registros
 
   static Future<int> eliminarProducto(int id) async {
-    final db = await _database;
-    final resultado =
-        await db!.delete('Productos', where: 'id = ?', whereArgs: [id]);
-    return resultado;
+    try {
+  final db = await _database;
+  final resultado =
+      await db!.delete('Productos', where: 'id = ?', whereArgs: [id]);
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 
   static Future<int> eliminarTodosLosProductos() async {
-    final db = await _database;
-    final resultado = await db!.rawDelete('DELETE FROM Productos');
-    print('TODOS LOS PRODUCTOS ELIMINADOS');
-    return resultado;
+    try {
+  final db = await _database;
+  final resultado = await db!.rawDelete('DELETE FROM Productos');
+  print('TODOS LOS PRODUCTOS ELIMINADOS');
+  return resultado;
+} on DatabaseException {
+  rethrow;
+}
   }
 }
