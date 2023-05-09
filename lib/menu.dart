@@ -14,7 +14,7 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //--- Menu HAMBURGUESA -------------------------------
+      //--- Menu HAMBURGUESA --------------------------------
       drawer: Drawer(
         child: Container(
           child: Column(
