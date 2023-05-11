@@ -38,14 +38,14 @@ class DBProvider {
       onOpen: (db) {},
       onCreate: (db, version) async {
         await db.execute('CREATE TABLE Usuarios ('
-            'id INTEGER PRIMARY KEY,'
+            'id INTEGER PRIMARY KEY AUTOINCREMENT,'
             'nombre TEXT NOT NULL,'
             'correo TEXT NOT NULL,'
             'contrasenia TEXT NOT NULL'
             ')');
 
         await db.execute('CREATE TABLE Productos ('
-            'id INTEGER PRIMARY KEY,'
+            'id INTEGER PRIMARY KEY AUTOINCREMENT,'
             'codigo TEXT NOT NULL,'
             'nombre TEXT NOT NULL,'
             'precio INTEGER NOT NULL,'
@@ -57,7 +57,7 @@ class DBProvider {
             ')');
 
         await db.execute('CREATE TABLE FlujoInventarios ('
-            'id INTEGER PRIMARY KEY,'
+            'id INTEGER PRIMARY KEY AUTOINCREMENT,'
             'fecha TEXT,'
             'tipo TEXT,'
             'cantidad INTEGER NOT NULL,'

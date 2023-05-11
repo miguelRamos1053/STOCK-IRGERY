@@ -1,7 +1,10 @@
+// ignore: file_names
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:hola_mundo/src/providers/producto_provider.dart';
+import 'package:hola_mundo/src/views/listarProducto.dart';
 
 // ignore: use_key_in_widget_constructors
 class CrearProducto extends StatefulWidget {
@@ -10,11 +13,11 @@ class CrearProducto extends StatefulWidget {
 }
 
 class _CrearProducto extends State<CrearProducto> {
-  late String _codigo;
-  late String _nombre;
-  late String _detalles;
-  late String _cantidad;
-  late String _precio;
+  late String _codigo = "";
+  late String _nombre = "";
+  late String _detalles = "";
+  late int _cantidad = 0;
+  late int _precio = 0;
 
   File? file;
   ImagePicker image = ImagePicker();
@@ -23,82 +26,75 @@ class _CrearProducto extends State<CrearProducto> {
 
   Widget _buildCodigo() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Codigo'),
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'El codigo es requerido';
-        }
-        if (value.length < 2) {
-          return 'El codigo debe tener minimo 2 caracteres';
-        }
-        return null;
-      },
-      onSaved: (String? value) {
-        _codigo = value!;
-      },
-    );
+        decoration: const InputDecoration(labelText: 'Codigo'),
+        validator: (String? value) {
+          if (value!.isEmpty) {
+            return 'El codigo es requerido';
+          } else if (value.length < 2) {
+            return 'El codigo debe tener minimo 2 caracteres';
+          } else {
+            _codigo = value;
+          }
+          return null;
+        });
   }
 
   Widget _buildNombre() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Nombre'),
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'El nombre es requerido';
-        }
-        return null;
-      },
-      onSaved: (String? value) {
-        _nombre = value!;
-      },
-    );
+        decoration: const InputDecoration(labelText: 'Nombre'),
+        validator: (String? value) {
+          if (value!.isEmpty) {
+            return 'El nombre es requerido';
+          } else {
+            _nombre = value;
+          }
+          return null;
+        });
   }
 
   Widget _buildDetalle() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Detalles'),
-      onSaved: (String? value) {
-        _detalles = value!;
-      },
-    );
+        decoration: const InputDecoration(labelText: 'Detalles'),
+        validator: (String? value) {
+          if (value!.isEmpty) {
+            return 'El detalle es requerido';
+          } else {
+            _detalles = value;
+          }
+          return null;
+        });
   }
 
   Widget _buildCantidad() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Cantidad'),
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'La cantidad es requerida';
-        }
-        if (int.parse(value) < 0) {
-          return 'La cantidad no puede ser negativa';
-        }
+        decoration: const InputDecoration(labelText: 'Cantidad'),
+        validator: (String? value) {
+          if (value!.isEmpty) {
+            return 'La cantidad es requerida';
+          } else if (int.parse(value) < 0) {
+            return 'La cantidad no puede ser negativa';
+          } else {
+            _cantidad = int.parse(value);
+          }
 
-        return null;
-      },
-      onSaved: (String? value) {
-        _cantidad = value!;
-      },
-    );
+          return null;
+        });
   }
 
   Widget _builPrecio() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Precio'),
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'El precio es requerido';
-        }
-        if (int.parse(value) <= 0) {
-          return 'El precio debe ser mayor a 0';
-        }
+        decoration: const InputDecoration(labelText: 'Precio'),
+        validator: (String? value) {
+          if (value!.isEmpty) {
+            return 'El precio es requerido';
+          } else if (int.parse(value) <= 0) {
+            return 'El precio debe ser mayor a 0';
+          } else {
+            _precio = int.parse(value);
+          }
 
-        return null;
-      },
-      onSaved: (String? value) {
-        _precio = value!;
-      },
-    );
+          return null;
+        });
   }
 
   @override
@@ -176,7 +172,13 @@ class _CrearProducto extends State<CrearProducto> {
                           if (!_formKey.currentState!.validate()) {
                             return;
                           }
-                          _formKey.currentState!.save();
+                          guardarDatos(
+                              _codigo, _nombre, _precio, _detalles, _cantidad);
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => listarProducto()));
                         },
                       )
                     ],
@@ -204,5 +206,17 @@ class _CrearProducto extends State<CrearProducto> {
     setState(() {
       file = File(img!.path);
     });
+  }
+
+  guardarDatos(codigo, nombre, precio, detalles, cantidad) async {
+    ProductoProvider.nuevoProducto(ProductoModel(
+        codigo: codigo,
+        nombre: nombre,
+        precio: precio,
+        detalles: detalles,
+        cantidad: cantidad,
+        foto: 'assets/cementoB.jpeg',
+        creadoPor: 1,
+        id: null));
   }
 }
