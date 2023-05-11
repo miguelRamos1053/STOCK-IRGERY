@@ -72,6 +72,7 @@ class _CrearProducto extends State<CrearProducto> {
   Widget _buildCantidad() {
     return TextFormField(
       key: const Key('CampoCantidad'),
+      keyboardType: TextInputType.number,
       decoration: const InputDecoration(labelText: 'Cantidad'),
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -92,6 +93,7 @@ class _CrearProducto extends State<CrearProducto> {
   Widget _builPrecio() {
     return TextFormField(
       key: const Key('CampoPrecio'),
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
       decoration: const InputDecoration(labelText: 'Precio'),
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -105,6 +107,7 @@ class _CrearProducto extends State<CrearProducto> {
       },
       onSaved: (String? value) {
         _precio = int.parse(value!);
+
       },
     );
   }
@@ -185,6 +188,8 @@ class _CrearProducto extends State<CrearProducto> {
                           if (!_formKey.currentState!.validate()) {
                             return;
                           }
+                          _formKey.currentState!.save();
+
                           guardarDatos(
                               _codigo, _nombre, _precio, _detalles, _cantidad);
 
@@ -222,7 +227,7 @@ class _CrearProducto extends State<CrearProducto> {
   }
 
   guardarDatos(codigo, nombre, precio, detalles, cantidad) async {
-    ProductoProvider.nuevoProducto(ProductoModel(
+    await ProductoProvider.nuevoProducto(ProductoModel(
         codigo: codigo,
         nombre: nombre,
         precio: precio,
