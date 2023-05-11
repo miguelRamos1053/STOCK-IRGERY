@@ -26,75 +26,97 @@ class _CrearProducto extends State<CrearProducto> {
 
   Widget _buildCodigo() {
     return TextFormField(
-        decoration: const InputDecoration(labelText: 'Codigo'),
-        validator: (String? value) {
-          if (value!.isEmpty) {
-            return 'El codigo es requerido';
-          } else if (value.length < 2) {
-            return 'El codigo debe tener minimo 2 caracteres';
-          } else {
-            _codigo = value;
-          }
-          return null;
-        });
+
+      key: Key('codigo'),
+      decoration: const InputDecoration(labelText: 'Código'),
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'El código es requerido';
+        }
+        if (value.length < 2) {
+          return 'El código debe tener mínimo 2 caracteres';
+        }
+        return null;
+      },
+      onSaved: (String? value) {
+        _codigo = value!;
+      },
+    );
+
   }
 
   Widget _buildNombre() {
     return TextFormField(
-        decoration: const InputDecoration(labelText: 'Nombre'),
-        validator: (String? value) {
-          if (value!.isEmpty) {
-            return 'El nombre es requerido';
-          } else {
-            _nombre = value;
-          }
-          return null;
-        });
+
+      key: const Key('CampoNombre'),
+      decoration: const InputDecoration(labelText: 'Nombre'),
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'El nombre es requerido';
+        }
+        return null;
+      },
+      onSaved: (String? value) {
+        _nombre = value!;
+      },
+    );
+
   }
 
   Widget _buildDetalle() {
     return TextFormField(
-        decoration: const InputDecoration(labelText: 'Detalles'),
-        validator: (String? value) {
-          if (value!.isEmpty) {
-            return 'El detalle es requerido';
-          } else {
-            _detalles = value;
-          }
-          return null;
-        });
+
+      key: const Key('campoDetalles'),
+      decoration: const InputDecoration(labelText: 'Detalles'),
+      onSaved: (String? value) {
+        _detalles = value!;
+      },
+    );
+
   }
 
   Widget _buildCantidad() {
     return TextFormField(
-        decoration: const InputDecoration(labelText: 'Cantidad'),
-        validator: (String? value) {
-          if (value!.isEmpty) {
-            return 'La cantidad es requerida';
-          } else if (int.parse(value) < 0) {
-            return 'La cantidad no puede ser negativa';
-          } else {
-            _cantidad = int.parse(value);
-          }
 
-          return null;
-        });
+      key: const Key('CampoCantidad'),
+      decoration: const InputDecoration(labelText: 'Cantidad'),
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'La cantidad es requerida';
+        }
+        if (int.parse(value) < 0) {
+          return 'La cantidad no puede ser negativa';
+        }
+
+        return null;
+      },
+      onSaved: (String? value) {
+        _cantidad = int.parse(value);
+      },
+    );
+
   }
 
   Widget _builPrecio() {
     return TextFormField(
-        decoration: const InputDecoration(labelText: 'Precio'),
-        validator: (String? value) {
-          if (value!.isEmpty) {
-            return 'El precio es requerido';
-          } else if (int.parse(value) <= 0) {
-            return 'El precio debe ser mayor a 0';
-          } else {
-            _precio = int.parse(value);
-          }
 
-          return null;
-        });
+      key: const Key('CampoPrecio'),
+      decoration: const InputDecoration(labelText: 'Precio'),
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'El precio es requerido';
+        }
+        if (int.parse(value) <= 0) {
+          return 'El precio debe ser mayor a 0';
+        }
+
+        return null;
+      },
+      onSaved: (String? value) {
+        _precio = int.parse(value);
+      },
+    );
+
   }
 
   @override
@@ -164,6 +186,7 @@ class _CrearProducto extends State<CrearProducto> {
                         height: 50,
                       ),
                       ElevatedButton(
+                        key: Key('btnEnviar'),
                         child: const Text(
                           'Enviar',
                           style: TextStyle(color: Colors.white, fontSize: 16),
