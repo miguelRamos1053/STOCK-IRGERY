@@ -26,7 +26,6 @@ class _CrearProducto extends State<CrearProducto> {
 
   Widget _buildCodigo() {
     return TextFormField(
-
       key: Key('codigo'),
       decoration: const InputDecoration(labelText: 'Código'),
       validator: (String? value) {
@@ -42,12 +41,10 @@ class _CrearProducto extends State<CrearProducto> {
         _codigo = value!;
       },
     );
-
   }
 
   Widget _buildNombre() {
     return TextFormField(
-
       key: const Key('CampoNombre'),
       decoration: const InputDecoration(labelText: 'Nombre'),
       validator: (String? value) {
@@ -60,24 +57,20 @@ class _CrearProducto extends State<CrearProducto> {
         _nombre = value!;
       },
     );
-
   }
 
   Widget _buildDetalle() {
     return TextFormField(
-
       key: const Key('campoDetalles'),
       decoration: const InputDecoration(labelText: 'Detalles'),
       onSaved: (String? value) {
         _detalles = value!;
       },
     );
-
   }
 
   Widget _buildCantidad() {
     return TextFormField(
-
       key: const Key('CampoCantidad'),
       decoration: const InputDecoration(labelText: 'Cantidad'),
       validator: (String? value) {
@@ -91,15 +84,13 @@ class _CrearProducto extends State<CrearProducto> {
         return null;
       },
       onSaved: (String? value) {
-        _cantidad = int.parse(value);
+        _cantidad = int.parse(value!);
       },
     );
-
   }
 
   Widget _builPrecio() {
     return TextFormField(
-
       key: const Key('CampoPrecio'),
       decoration: const InputDecoration(labelText: 'Precio'),
       validator: (String? value) {
@@ -113,10 +104,15 @@ class _CrearProducto extends State<CrearProducto> {
         return null;
       },
       onSaved: (String? value) {
-        _precio = int.parse(value);
+        _precio = int.parse(value!);
+        print('object' +
+            '$_precio' +
+            _detalles +
+            _codigo +
+            _nombre +
+            '$_cantidad');
       },
     );
-
   }
 
   @override
@@ -195,6 +191,8 @@ class _CrearProducto extends State<CrearProducto> {
                           if (!_formKey.currentState!.validate()) {
                             return;
                           }
+                          _formKey.currentState!.save();
+
                           guardarDatos(
                               _codigo, _nombre, _precio, _detalles, _cantidad);
 
@@ -232,7 +230,7 @@ class _CrearProducto extends State<CrearProducto> {
   }
 
   guardarDatos(codigo, nombre, precio, detalles, cantidad) async {
-    ProductoProvider.nuevoProducto(ProductoModel(
+    await ProductoProvider.nuevoProducto(ProductoModel(
         codigo: codigo,
         nombre: nombre,
         precio: precio,
