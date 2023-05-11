@@ -23,13 +23,14 @@ class _CrearProducto extends State<CrearProducto> {
 
   Widget _buildCodigo() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Codigo'),
+      key: Key('codigo'),
+      decoration: const InputDecoration(labelText: 'Código'),
       validator: (String? value) {
         if (value!.isEmpty) {
-          return 'El codigo es requerido';
+          return 'El código es requerido';
         }
         if (value.length < 2) {
-          return 'El codigo debe tener minimo 2 caracteres';
+          return 'El código debe tener mínimo 2 caracteres';
         }
         return null;
       },
@@ -41,6 +42,7 @@ class _CrearProducto extends State<CrearProducto> {
 
   Widget _buildNombre() {
     return TextFormField(
+      key: const Key('CampoNombre'),
       decoration: const InputDecoration(labelText: 'Nombre'),
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -56,6 +58,7 @@ class _CrearProducto extends State<CrearProducto> {
 
   Widget _buildDetalle() {
     return TextFormField(
+      key: const Key('campoDetalles'),
       decoration: const InputDecoration(labelText: 'Detalles'),
       onSaved: (String? value) {
         _detalles = value!;
@@ -65,6 +68,7 @@ class _CrearProducto extends State<CrearProducto> {
 
   Widget _buildCantidad() {
     return TextFormField(
+      key: const Key('CampoCantidad'),
       decoration: const InputDecoration(labelText: 'Cantidad'),
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -84,6 +88,7 @@ class _CrearProducto extends State<CrearProducto> {
 
   Widget _builPrecio() {
     return TextFormField(
+      key: const Key('CampoPrecio'),
       decoration: const InputDecoration(labelText: 'Precio'),
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -168,6 +173,7 @@ class _CrearProducto extends State<CrearProducto> {
                         height: 50,
                       ),
                       ElevatedButton(
+                        key: Key('btnEnviar'),
                         child: const Text(
                           'Enviar',
                           style: TextStyle(color: Colors.white, fontSize: 16),
