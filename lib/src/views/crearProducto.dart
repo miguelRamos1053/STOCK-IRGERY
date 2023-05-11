@@ -72,6 +72,7 @@ class _CrearProducto extends State<CrearProducto> {
   Widget _buildCantidad() {
     return TextFormField(
       key: const Key('CampoCantidad'),
+      keyboardType: TextInputType.number,
       decoration: const InputDecoration(labelText: 'Cantidad'),
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -92,6 +93,7 @@ class _CrearProducto extends State<CrearProducto> {
   Widget _builPrecio() {
     return TextFormField(
       key: const Key('CampoPrecio'),
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
       decoration: const InputDecoration(labelText: 'Precio'),
       validator: (String? value) {
         if (value!.isEmpty) {
