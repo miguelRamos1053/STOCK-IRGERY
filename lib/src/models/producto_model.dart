@@ -17,7 +17,7 @@ class ProductoModel {
     required this.creadoPor,
   });
 
-  int id;
+  int? id;
   String codigo;
   String nombre;
   int precio;

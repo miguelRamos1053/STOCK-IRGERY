@@ -20,79 +20,76 @@ class ProductoProvider {
       final resultado = await db?.insert('Productos', producto.toJson());
       return resultado;
     } on DatabaseException {
-      
       rethrow;
     }
   }
 
   static Future<ProductoModel?> getProductoPorId(int id) async {
-    try{
-final db = await _database;
-    final resultado = await db?.query('Productos',
-        where: 'id = ?',
-        whereArgs: [id]); //realiza la consulta a la base de datos
+    try {
+      final db = await _database;
+      final resultado = await db?.query('Productos',
+          where: 'id = ?',
+          whereArgs: [id]); //realiza la consulta a la base de datos
 
-    return resultado!.isNotEmpty
-        ? ProductoModel.fromJson(resultado.first)
-        : null;
-    } on DatabaseException{
+      return resultado!.isNotEmpty
+          ? ProductoModel.fromJson(resultado.first)
+          : null;
+    } on DatabaseException {
       rethrow;
     }
-    
   }
 
   static Future<List<ProductoModel?>> getProductos() async {
-    try{
-final db = await _database;
-    final resultado = await db?.query('Productos');
+    try {
+      final db = await _database;
+      final resultado = await db?.query('Productos');
 
-    List<ProductoModel> lista = resultado!.isNotEmpty
-        ? resultado.map((e) => ProductoModel.fromJson(e)).toList()
-        : [];
-    lista.forEach((e) => print(
-        'Nombre: ${e.nombre}, Codigo: ${e.codigo}, ID: ${e.id}, cantidad: ${e.cantidad} creado por: ${e.creadoPor}'));
+      List<ProductoModel> lista = resultado!.isNotEmpty
+          ? resultado.map((e) => ProductoModel.fromJson(e)).toList()
+          : [];
+      lista.forEach((e) => print(
+          'Nombre: ${e.nombre}, Codigo: ${e.codigo}, ID: ${e.id}, cantidad: ${e.cantidad} creado por: ${e.creadoPor}'));
 
-    return lista;
-    }on DatabaseException{
+      return lista;
+    } on DatabaseException {
       rethrow;
     }
-    
   }
 
   //actualizar registros
 
   static Future<int> actualizarProducto(ProductoModel producto) async {
     try {
-  final db = await _database;
-  final resultado = await db!.update('Productos', producto.toJson(),
-      where: 'id = ?', whereArgs: [producto.id]);
-  return resultado;
-} on DatabaseException {
-  rethrow;
-}
+      final db = await _database;
+      final resultado = await db!.update('Productos', producto.toJson(),
+          where: 'id = ?', whereArgs: [producto.id]);
+      return resultado;
+    } on DatabaseException {
+      rethrow;
+    }
   }
 
   //borrar registros
 
   static Future<int> eliminarProducto(int id) async {
     try {
-  final db = await _database;
-  final resultado =
-      await db!.delete('Productos', where: 'id = ?', whereArgs: [id]);
-  return resultado;
-} on DatabaseException {
-  rethrow;
-}
+      final db = await _database;
+      final resultado =
+          await db!.delete('Productos', where: 'id = ?', whereArgs: [id]);
+      return resultado;
+    } on DatabaseException {
+      rethrow;
+    }
   }
 
   static Future<int> eliminarTodosLosProductos() async {
     try {
-  final db = await _database;
-  final resultado = await db!.rawDelete('DELETE FROM Productos');
-  print('TODOS LOS PRODUCTOS ELIMINADOS');
-  return resultado;
-} on DatabaseException {
-  rethrow;
-}
+      final db = await _database;
+      final resultado = await db!.rawDelete('DELETE FROM Productos');
+      print('TODOS LOS PRODUCTOS ELIMINADOS');
+      return resultado;
+    } on DatabaseException {
+      rethrow;
+    }
   }
 }
