@@ -78,27 +78,27 @@ class _listaUsuario extends State<listaUsuario> {
   guardarDatos() async {
     //Crea usuarios de prueba en la base de datos
 
-    await UsuarioProvider.nuevoUsuario(UsuarioModel(
-        id: 1,
-        nombre: "Alejandro",
-        correo: "alejandro@gmail.com",
-        contrasenia: "1234"));
+    // await UsuarioProvider.nuevoUsuario(UsuarioModel(
+    //     id: 1,
+    //     nombre: "Alejandro",
+    //     correo: "alejandro@gmail.com",
+    //     contrasenia: "1234"));
 
-    UsuarioProvider.nuevoUsuario(UsuarioModel(
-        id: 2,
-        nombre: "Brayan",
-        correo: "brayan@gmail.com",
-        contrasenia: "1234"));
-    UsuarioProvider.nuevoUsuario(UsuarioModel(
-        id: 3,
-        nombre: "Albert",
-        correo: "albert@gmail.com",
-        contrasenia: "1234"));
-    UsuarioProvider.nuevoUsuario(UsuarioModel(
-        id: 4,
-        nombre: "Miguel",
-        correo: "miguel@gmail.com",
-        contrasenia: "1234"));
+    // UsuarioProvider.nuevoUsuario(UsuarioModel(
+    //     id: 2,
+    //     nombre: "Brayan",
+    //     correo: "brayan@gmail.com",
+    //     contrasenia: "1234"));
+    // UsuarioProvider.nuevoUsuario(UsuarioModel(
+    //     id: 3,
+    //     nombre: "Albert",
+    //     correo: "albert@gmail.com",
+    //     contrasenia: "1234"));
+    // UsuarioProvider.nuevoUsuario(UsuarioModel(
+    //     id: 4,
+    //     nombre: "Miguel",
+    //     correo: "miguel@gmail.com",
+    //     contrasenia: "1234"));
 
     //imprimir los productos y usuarios creados
     UsuarioProvider.getUsuarios();
