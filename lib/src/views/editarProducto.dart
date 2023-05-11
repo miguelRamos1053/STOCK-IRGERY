@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -163,6 +164,8 @@ class _EditarProducto extends State<EditarProducto> {
                         ),
                         onPressed: () {
                           if (!_formKey.currentState!.validate()) {
+                            print("Holaa");
+
                             return;
                           }
                           _formKey.currentState!.save();
@@ -178,4 +181,14 @@ class _EditarProducto extends State<EditarProducto> {
       ),
     );
   }
+
+  // actualizarPrecio() async {
+  //   ProductoProvider.actualizarProducto(ProductoModel(
+  //     id: id,
+  //     codigo: codigo,
+  //     nombre: nombre,
+  //     precio: precio,
+  //     creadoPor: creadoPor
+  //     ));
+  // }
 }

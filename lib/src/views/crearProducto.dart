@@ -107,12 +107,7 @@ class _CrearProducto extends State<CrearProducto> {
       },
       onSaved: (String? value) {
         _precio = int.parse(value!);
-        print('object' +
-            '$_precio' +
-            _detalles +
-            _codigo +
-            _nombre +
-            '$_cantidad');
+
       },
     );
   }
