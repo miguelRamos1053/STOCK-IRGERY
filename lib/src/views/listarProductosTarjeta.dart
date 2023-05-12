@@ -3,6 +3,7 @@ import 'package:hola_mundo/src/providers/usuario_provider.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
 import 'package:hola_mundo/src/views/crearProducto.dart';
 import 'package:hola_mundo/src/views/listarProducto.dart';
+import 'package:hola_mundo/src/views/listarProductosTarjetaAlfetic.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
 
 import 'actualizarCantidad.dart';
@@ -87,8 +88,11 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
               }),
           IconButton(
               icon: Icon(Icons.text_rotate_vertical),
-              tooltip: "Buscar",
-              onPressed: () => {}),
+              tooltip: "Ordenar alfabeticamente",
+              onPressed: () => {
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => listarProductoTarjetaAlfetic()))
+              }),
         ],
       ),
       body: Center(

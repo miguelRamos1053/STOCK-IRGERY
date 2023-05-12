@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/src/providers/usuario_provider.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
 import 'package:hola_mundo/src/views/crearProducto.dart';
-import 'package:hola_mundo/src/views/listarProductoAlfetic.dart';
 import 'package:hola_mundo/src/views/listarProductosTarjeta.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
 
 import 'actualizarCantidad.dart';
 import 'editarProducto.dart';
+import 'listarProducto.dart';
 
-class listarProducto extends StatefulWidget {
+class listarProductoAlfetic extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _listarProducto();
+    return _listarProductoAlfetic();
   }
 }
 
-class _listarProducto extends State<listarProducto> {
+class _listarProductoAlfetic extends State<listarProductoAlfetic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,16 +94,13 @@ class _listarProducto extends State<listarProducto> {
           IconButton(
               icon: Icon(Icons.text_rotate_vertical),
               tooltip: "Ordenar alfabeticamente",
-              onPressed: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => listarProductoAlfetic()))
-              }),
+              onPressed: () => {}),
         ],
       ),
 
       body: Center(
           child: FutureBuilder(
-        future: ProductoProvider.getProductos(),
+        future: ProductoProvider.getProductosOrdenados(),
         builder: (BuildContext context,
             AsyncSnapshot<List<ProductoModel?>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
@@ -218,7 +215,7 @@ class _listarProducto extends State<listarProducto> {
  */
     //imprimir los productos y usuarios creados
 
-    ProductoProvider.getProductos();
+    ProductoProvider.getProductosOrdenados();
     //  ProductoProvider.nuevoProducto(ProductoModel(id: 2, codigo: 'sss', nombre: 'destornillador', creadoPor: 7));
   }
 

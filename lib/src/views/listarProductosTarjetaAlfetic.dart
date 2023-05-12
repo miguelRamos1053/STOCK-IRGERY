@@ -2,25 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/src/providers/usuario_provider.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
 import 'package:hola_mundo/src/views/crearProducto.dart';
-import 'package:hola_mundo/src/views/listarProductoAlfetic.dart';
-import 'package:hola_mundo/src/views/listarProductosTarjeta.dart';
+import 'package:hola_mundo/src/views/listarProducto.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
 
 import 'actualizarCantidad.dart';
-import 'editarProducto.dart';
 
-class listarProducto extends StatefulWidget {
+class listarProductoTarjetaAlfetic extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _listarProducto();
+    return _listarProductoTarjetaAlfetic();
   }
 }
 
-class _listarProducto extends State<listarProducto> {
+class _listarProductoTarjetaAlfetic extends State<listarProductoTarjetaAlfetic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //--- Menu HAMBURGUESA -------------------------------
       drawer: Drawer(
         child: Container(
           child: Column(
@@ -79,73 +76,69 @@ class _listarProducto extends State<listarProducto> {
         ),
       ),
       appBar: AppBar(
-        title: Text(
-          "Lista Productos",
-          style: TextStyle(fontSize: 14),
-        ),
+        title: Text("Lista Productos T", style: TextStyle(fontSize: 14)),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.view_array_rounded),
-              tooltip: "listar Producto Tarjeta",
+              icon: Icon(Icons.table_view_rounded),
+              tooltip: "listar Producto ",
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => listarProductoTarjeta()));
+                    MaterialPageRoute(builder: (_) => listarProducto()));
               }),
           IconButton(
               icon: Icon(Icons.text_rotate_vertical),
-              tooltip: "Ordenar alfabeticamente",
-              onPressed: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => listarProductoAlfetic()))
-              }),
+              tooltip: "Buscar",
+              onPressed: () => {}),
         ],
       ),
-
       body: Center(
           child: FutureBuilder(
-        future: ProductoProvider.getProductos(),
+        future: ProductoProvider.getProductosOrdenados(),
         builder: (BuildContext context,
             AsyncSnapshot<List<ProductoModel?>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
-            return ListView.builder(
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
               itemCount: snapshot.data?.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                    title: Text('Producto: ${snapshot.data![index]!.id}'),
-                    subtitle: Column(
-                      children: [
-                        Text('Codigo: ${snapshot.data![index]!.codigo} '),
-                        Text('Nombre: ${snapshot.data![index]!.nombre} '),
-                        Text('Nombre: ${snapshot.data![index]!.precio} '),
-                        Text('Detalle: ${snapshot.data![index]!.detalles} '),
-                        Text('Cantidad: ${snapshot.data![index]!.cantidad} '),
-                        // boton cambiar cantidad
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ActualizarCantidad(
-                                        snapshot.data?[index])));
-                          },
-                          icon: const Icon(Icons.edit),
-                          label: const Text('Cantidad'),
-                        ),
-                        // boton editar producto
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        EditarProducto(snapshot.data?[index])));
-                          },
-                          icon: const Icon(Icons.edit),
-                          label: const Text('Editar Producto'),
-                        ),
-                      ],
-                    ));
+                return Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(17)),
+                  color: Colors.white70,
+                  elevation: 10.0,
+                  child: Column(
+                    children: [
+                      Flexible(child: Image.asset(snapshot.data![index]!.foto)),
+
+                      //Text('${snapshot.data![index]!.codigo} '),
+                      Text(
+                        '${snapshot.data![index]!.nombre} '.toUpperCase(),
+                        style: const TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '${snapshot.data![index]!.precio} '.toUpperCase(),
+                        style: const TextStyle(
+                            fontSize: 12.0, fontWeight: FontWeight.bold),
+                      ),
+                      //Text('Detalle: ${snapshot.data![index]!.detalles} '),
+                      Text('Cantidad: ${snapshot.data![index]!.cantidad} '),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => ActualizarCantidad(
+                                      snapshot.data?[index])));
+                        },
+                        icon: const Icon(Icons.edit),
+                        label: const Text('Cantidad'),
+                      ),
+                    ],
+                  ),
+                );
               },
             );
           } else {
@@ -156,7 +149,6 @@ class _listarProducto extends State<listarProducto> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // BOTON CREAR PRODUCTO --------------------
           FloatingActionButton(
             onPressed: () {
               guardarDatos();
@@ -175,50 +167,40 @@ class _listarProducto extends State<listarProducto> {
   guardarDatos() async {
 //crear un producto
 
-/**
+    /* ProductoProvider.nuevoProducto(ProductoModel(
+        id: 1,
+        codigo: 'sss',
+        nombre: 'destornillador',
+        cantidad: 30,
+        creadoPor: 1));
+
     ProductoProvider.nuevoProducto(ProductoModel(
+        id: 2,
         codigo: 'A-1',
         nombre: 'Cemento blanco 25kg',
-        precio: 36500,
         detalles: 'Medio bulto cemento blanco - 25 kg',
         cantidad: 25,
-        foto: 'assets/cementoB.jpeg',
-        creadoPor: 1,
-        id: null));
-
+        creadoPor: 1));
+        
     ProductoProvider.nuevoProducto(ProductoModel(
-        codigo: 'A-2',
-        nombre: 'Cemento Gris 50kg',
-        precio: 33000,
-        detalles: 'Bulto cemento gris - 50 kg',
-        cantidad: 30,
-        foto: 'assets/cementoG.jpeg',
-        creadoPor: 1,
-        id: null));
-
-    ProductoProvider.nuevoProducto(ProductoModel(
+        id: 3,
         codigo: 'B-1',
         nombre: 'codo pvc ½',
-        precio: 1200,
         detalles: 'Accesorio pvc de ½',
         cantidad: 100,
-        foto: 'assets/codo.jpeg',
-        creadoPor: 1,
-        id: null));
+        creadoPor: 1));
 
     ProductoProvider.nuevoProducto(ProductoModel(
+        id: 4,
         codigo: 'B-2',
         nombre: 'Adaptador macho pvc ½',
-        precio: 1200,
         detalles: 'Accesorio pvc de ½',
         cantidad: 50,
-        foto: 'assets/adaptadorM.jpeg',
-        creadoPor: 1,
-        id: null));
- */
-    //imprimir los productos y usuarios creados
+        creadoPor: 1));
 
-    ProductoProvider.getProductos();
+    //imprimir los productos y usuarios creados
+*/
+    ProductoProvider.getProductosOrdenados();
     //  ProductoProvider.nuevoProducto(ProductoModel(id: 2, codigo: 'sss', nombre: 'destornillador', creadoPor: 7));
   }
 
