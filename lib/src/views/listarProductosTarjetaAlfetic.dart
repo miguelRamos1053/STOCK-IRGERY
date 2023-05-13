@@ -5,7 +5,7 @@ import 'package:hola_mundo/src/views/crearProducto.dart';
 import 'package:hola_mundo/src/views/listarProducto.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
 
-import 'actualizarCantidad.dart';
+import 'actualizar_cantidad.dart';
 
 class listarProductoTarjetaAlfetic extends StatefulWidget {
   @override

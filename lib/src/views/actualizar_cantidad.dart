@@ -2,9 +2,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/src/providers/producto_provider.dart';
+import '../providers/producto_provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:hola_mundo/src/views/listarProducto.dart';
+import 'listarProducto.dart';
 
 // ignore: use_key_in_widget_constructors
 class ActualizarCantidad extends StatefulWidget {
@@ -87,7 +87,7 @@ class _ActualizarCantidad extends State<ActualizarCantidad> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Actualizar Cantidad"),
+        title: const Text('Actualizar Cantidad'),
         backgroundColor: Colors.orange[80],
       ),
       body: Center(
@@ -138,7 +138,7 @@ class _ActualizarCantidad extends State<ActualizarCantidad> {
                                 children: <Widget>[
                                   Center(
                                       child: FloatingActionButton(
-                                          child: Text("Ok"),
+                                          child: const Text('Ok'),
                                           onPressed: () {
                                             Navigator.push(
                                                 context,
@@ -173,14 +173,6 @@ class _ActualizarCantidad extends State<ActualizarCantidad> {
         cantidad: _cantidadActu,
         foto: _foto,
         creadoPor: 1));
-
-    print("Se edito a:");
-    print(_id);
-    print(_codigo);
-    print(_nombre);
-    print(_precio);
-    print(_detalles);
-    print(_cantidadActu);
-    print(_foto);
+        
   }
 }

@@ -6,7 +6,7 @@ import 'package:hola_mundo/src/views/listarProductoAlfetic.dart';
 import 'package:hola_mundo/src/views/listarProductosTarjeta.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
 
-import 'actualizarCantidad.dart';
+import 'actualizar_cantidad.dart';
 import 'editarProducto.dart';
 
 class listarProducto extends StatefulWidget {
