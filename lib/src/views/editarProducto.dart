@@ -85,6 +85,7 @@ class _EditarProducto extends State<EditarProducto> {
 
   Widget _buildCantidad() {
     return TextFormField(
+      keyboardType: const TextInputType.numberWithOptions(decimal: false),
       decoration: const InputDecoration(labelText: 'Cantidad'),
       initialValue: '$_cantidad',
       validator: (String? value) {
@@ -105,6 +106,7 @@ class _EditarProducto extends State<EditarProducto> {
 
   Widget _buildPrecio() {
     return TextFormField(
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
       decoration: const InputDecoration(labelText: 'Precio'),
       initialValue: '$_precio',
       validator: (String? value) {

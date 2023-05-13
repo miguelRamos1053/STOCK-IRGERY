@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:hola_mundo/src/providers/usuario_provider.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
@@ -19,6 +22,7 @@ class listarProducto extends StatefulWidget {
 class _listarProducto extends State<listarProducto> {
   @override
   Widget build(BuildContext context) {
+  
     return Scaffold(
       //--- Menu HAMBURGUESA -------------------------------
       drawer: Drawer(
@@ -109,43 +113,61 @@ class _listarProducto extends State<listarProducto> {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             return ListView.builder(
+              
               itemCount: snapshot.data?.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                    title: Text('Producto: ${snapshot.data![index]!.id}'),
-                    subtitle: Column(
-                      children: [
-                        Text('Codigo: ${snapshot.data![index]!.codigo} '),
-                        Text('Nombre: ${snapshot.data![index]!.nombre} '),
-                        Text('Nombre: ${snapshot.data![index]!.precio} '),
-                        Text('Detalle: ${snapshot.data![index]!.detalles} '),
-                        Text('Cantidad: ${snapshot.data![index]!.cantidad} '),
-                        // boton cambiar cantidad
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ActualizarCantidad(
-                                        snapshot.data?[index])));
-                          },
-                          icon: const Icon(Icons.edit),
-                          label: const Text('Cantidad'),
-                        ),
-                        // boton editar producto
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        EditarProducto(snapshot.data?[index])));
-                          },
-                          icon: const Icon(Icons.edit),
-                          label: const Text('Editar Producto'),
-                        ),
-                      ],
-                    ));
+                return Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  margin: EdgeInsets.all(15),
+                  elevation: 10,
+                  child: ListTile(
+                      title: Text(snapshot.data![index]!.nombre,
+                      style: const TextStyle(fontWeight: FontWeight.bold),),
+                      subtitle: Column(
+                        children: [
+                            Image(image: AssetImage(snapshot.data![index]!.foto),
+                           height: 120,
+                           ),
+                        
+                     
+                          Text('Codigo: ${snapshot.data![index]!.codigo} '),
+                          Text('Precio: ${snapshot.data![index]!.precio} '),
+                          Text('Detalles: ${snapshot.data![index]!.detalles} '),
+                          Text('Cantidad: ${snapshot.data![index]!.cantidad} '),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              // boton cambiar cantidad
+                          TextButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => ActualizarCantidad(
+                                          snapshot.data?[index])));
+                            },
+                            icon: const Icon(Icons.edit),
+                            label: const Text('Cantidad'),
+                          ),
+                          // boton editar producto
+                          TextButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                          EditarProducto(snapshot.data?[index])));
+                            },
+                            icon: const Icon(Icons.edit),
+                            label: const Text('Editar Producto'),
+                          ),
+                            ],
+                          )
+                          
+                        ],
+                      )),
+                      
+                );
               },
             );
           } else {
@@ -159,6 +181,7 @@ class _listarProducto extends State<listarProducto> {
           // BOTON CREAR PRODUCTO --------------------
           FloatingActionButton(
             onPressed: () {
+           
               guardarDatos();
               Navigator.push(
                   context, MaterialPageRoute(builder: (_) => CrearProducto()));
@@ -170,7 +193,7 @@ class _listarProducto extends State<listarProducto> {
       ),
     );
   }
-
+ 
   //funciones para pruebas
   guardarDatos() async {
 //crear un producto

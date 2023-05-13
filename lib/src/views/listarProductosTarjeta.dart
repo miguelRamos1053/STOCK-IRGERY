@@ -123,7 +123,7 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
                             fontSize: 12.0, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '${snapshot.data![index]!.precio} '.toUpperCase(),
+                        'Precio: ${snapshot.data![index]!.precio} ',
                         style: const TextStyle(
                             fontSize: 12.0, fontWeight: FontWeight.bold),
                       ),

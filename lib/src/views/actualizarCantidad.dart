@@ -57,6 +57,7 @@ class _ActualizarCantidad extends State<ActualizarCantidad> {
 
   Widget _buildCantidad() {
     return TextFormField(
+      keyboardType: const TextInputType.numberWithOptions(decimal: false),
       decoration: const InputDecoration(labelText: 'Cantidad'),
       initialValue: '$_cantidad',
       validator: (String? value) {
@@ -137,7 +138,7 @@ class _ActualizarCantidad extends State<ActualizarCantidad> {
                                     'Cantidad actualizada a $_cantidadActu'),
                                 children: <Widget>[
                                   Center(
-                                      child: FloatingActionButton(
+                                      child: TextButton(
                                           child: Text("Ok"),
                                           onPressed: () {
                                             Navigator.push(
@@ -161,6 +162,11 @@ class _ActualizarCantidad extends State<ActualizarCantidad> {
         ),
       ),
     );
+  }
+
+  obtenerCantidadActual() async {
+    ProductoModel? p = await ProductoProvider.getProductoPorId(_id!);
+    int cantidadActual = p!.cantidad;
   }
 
   actualizarPrecio() async {
