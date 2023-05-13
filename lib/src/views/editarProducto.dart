@@ -37,11 +37,11 @@ class _EditarProducto extends State<EditarProducto> {
 
   Widget _buildCodigo() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Codigó'),
+      decoration: const InputDecoration(labelText: 'Código'),
       initialValue: _codigo,
       validator: (String? value) {
         if (value!.isEmpty) {
-          return 'El codigo es requerido';
+          return 'El código es requerido';
         }
         return null;
       },
@@ -57,7 +57,7 @@ class _EditarProducto extends State<EditarProducto> {
       initialValue: _nombre,
       validator: (String? value) {
         if (value!.isEmpty) {
-          return 'La nombre es requerida';
+          return 'El nombre es requerido';
         }
         return null;
       },
@@ -71,12 +71,6 @@ class _EditarProducto extends State<EditarProducto> {
     return TextFormField(
       decoration: const InputDecoration(labelText: 'Detalles'),
       initialValue: '$_detalles',
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'El detalle es requerido';
-        }
-        return null;
-      },
       onSaved: (String? value) {
         _detalleActual = value!;
       },
@@ -111,7 +105,7 @@ class _EditarProducto extends State<EditarProducto> {
       initialValue: '$_precio',
       validator: (String? value) {
         if (value!.isEmpty) {
-          return 'El precio es requerida';
+          return 'El precio es requerido';
         }
         if (int.parse(value) < 1) {
           return 'El precio tiene que ser mayor a 0';
