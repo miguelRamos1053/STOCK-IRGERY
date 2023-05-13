@@ -96,7 +96,8 @@ class _CrearProducto extends State<CrearProducto> {
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       decoration: const InputDecoration(labelText: 'Precio'),
       validator: (String? value) {
-        if (value!.isEmpty) {
+        try{
+if (value!.isEmpty) {
           return 'El precio es requerido';
         }
         if (int.parse(value) <= 0) {
@@ -104,6 +105,10 @@ class _CrearProducto extends State<CrearProducto> {
         }
 
         return null;
+        } catch(ex) {
+          print('numero invalido');
+        }
+        
       },
       onSaved: (String? value) {
         _precio = int.parse(value!);
@@ -180,6 +185,7 @@ class _CrearProducto extends State<CrearProducto> {
                       ),
                       ElevatedButton(
                         key: Key('btnEnviar'),
+                        
                         child: const Text(
                           'Enviar',
                           style: TextStyle(color: Colors.white, fontSize: 16),
@@ -213,17 +219,27 @@ class _CrearProducto extends State<CrearProducto> {
   getCam() async {
     // ignore: deprecated_member_use
     var img = await image.getImage(source: ImageSource.camera);
+   
+    if(img !=null){
+
+    }
     setState(() {
       file = File(img!.path);
     });
+   
   }
 
   getGall() async {
     // ignore: deprecated_member_use
     var img = await image.getImage(source: ImageSource.gallery);
+    final imagen= await img!.readAsBytes();
+    if(img!=null){
+
+    }
     setState(() {
       file = File(img!.path);
     });
+      
   }
 
   guardarDatos(codigo, nombre, precio, detalles, cantidad) async {
@@ -233,7 +249,7 @@ class _CrearProducto extends State<CrearProducto> {
         precio: precio,
         detalles: detalles,
         cantidad: cantidad,
-        foto: 'assets/cementoB.jpeg',
+        foto:  'assets/cementoB.jpeg',
         creadoPor: 1,
         id: null));
   }
