@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/src/providers/usuario_provider.dart';
 import 'package:hola_mundo/src/providers/producto_provider.dart';
 import 'package:hola_mundo/src/views/crearProducto.dart';
+import 'package:hola_mundo/src/views/editarProducto.dart';
 import 'package:hola_mundo/src/views/listarProducto.dart';
 import 'package:hola_mundo/src/views/listarProductosTarjetaAlfetic.dart';
 import 'package:hola_mundo/src/views/listarUsuario.dart';
@@ -129,7 +130,8 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
                       ),
                       //Text('Detalle: ${snapshot.data![index]!.detalles} '),
                       Text('Cantidad: ${snapshot.data![index]!.cantidad} '),
-                      ElevatedButton.icon(
+                       Text('Detalles: ${snapshot.data![index]!.detalles} '),
+                      TextButton.icon(
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -140,6 +142,17 @@ class _listarProductoTarjeta extends State<listarProductoTarjeta> {
                         icon: const Icon(Icons.edit),
                         label: const Text('Cantidad'),
                       ),
+                      TextButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                          EditarProducto(snapshot.data?[index])));
+                            },
+                            icon: const Icon(Icons.edit),
+                            label: const Text('Editar Producto'),
+                          ),
                     ],
                   ),
                 );
