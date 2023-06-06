@@ -41,9 +41,7 @@ class _listarProducto extends State<listarProducto> {
                     margin: const EdgeInsets.only(top: 50),
                     padding: new EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                     color: Colors.grey[100],
-                    child: new Column(children: [
-                      new Text("INICIO"),
-                    ]),
+                    child: ComponenContainer(),
                   )),
               //----USUARIOS ---------------------
               GestureDetector(
@@ -206,5 +204,18 @@ class _listarProducto extends State<listarProducto> {
   eliminarDatos() async {
     // await UsuarioProvider.database;
     ProductoProvider.eliminarTodosLosProductos();
+  }
+}
+
+class ComponenContainer extends StatelessWidget {
+  const ComponenContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return new Column(children: [
+      new Text("INICIO"),
+    ]);
   }
 }
