@@ -24,20 +24,22 @@ class _CrearProducto extends State<CrearProducto> {
   Widget _buildCodigo() {
     return TextFormField(
       decoration: const InputDecoration(labelText: 'Codigo'),
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'El codigo es requerido';
-        }
-        if (value.length < 2) {
-          return 'El codigo debe tener minimo 2 caracteres';
-        }
-        return null;
-      },
+      validator: validatorValor,
       onSaved: (String? value) {
         _codigo = value!;
       },
     );
   }
+
+  validatorValor(String? value) {
+      if (value!.isEmpty) {
+        return 'El codigo es requerido';
+      }
+      if (value.length < 2) {
+        return 'El codigo debe tener minimo 2 caracteres';
+      }
+      return null;
+    }
 
   Widget _buildNombre() {
     return TextFormField(
