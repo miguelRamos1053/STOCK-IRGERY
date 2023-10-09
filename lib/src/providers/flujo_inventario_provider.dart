@@ -56,18 +56,6 @@ class FlujoInventarioProvider {
 
   //actualizar registros
 
-  static Future<int> actualizarFlujoInventario(
-      FlujoInventarioModel inventario) async {
-    try {
-  final db = await _database;
-  final resultado = await db!.update('FlujoInventarios', inventario.toJson(),
-      where: 'id = ?', whereArgs: [inventario.id]);
-  return resultado;
-} on DatabaseException {
-  rethrow;
-}
-  }
-
   //borrar registros
 
   static Future<int> eliminarFlujoInventario(int id) async {
